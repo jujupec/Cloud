@@ -1,5 +1,22 @@
-entrer le nom du site du spot de votre choix (ex: Ste-Anne)
+# Database nba mongodb
+les fichier csv sont dans le dossier csv.
 
-aucun probleme si vous faites une erreur
+##  1ere étape
 
-ensuite cela vous donne les 5 campings les plus proches du spot choisi avec leurs informations et des informations sur la pratique de surf, kite et wind sur ce spot.
+Créer votre base de donnée NBA mongodb et insérer les fichier csv en tant que collections. (mongoimport)
+
+lancé la connection à votre base de donnée
+
+## 2e étape
+
+Ouvrez le projet cloud dans un IDE.
+Ouvrer un terminal et placer vous à la racine du projet et entrer npm install ou sudo npm install
+
+
+Dans app.js, il faut remplacer semon votre connection à votre base de données au lignes 42, 88 et 110.
+Si vous utiliser sans docker: http://localhost:[port]/NBA .
+avec docker : mongodb://localhost:[port]/NBA
+
+Voilà vous n'avez plus qu'à lancer le projet, dans le terminal, vous vous positionner à la racine du projet et vous lancer la commande : node app.js.
+
+
