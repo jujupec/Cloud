@@ -1,0 +1,14 @@
+body {
+    background-image: url("http://sixfeetgalerie.com/431-original/blue-wave.jpg");
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+span{
+    color: red;
+}
+
+b{
+    font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+}

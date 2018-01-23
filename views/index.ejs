@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is my team ?</title>
+    <link href="/public/stylesheets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="icon" href="/public/stylesheets/bootstrap/dist/images/favicon.ico" type="image/x-icon">
+    
+
+<style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      height: 100%;
+    }
+
+    .dropdown-menu{
+      max-height:250px;
+      overflow-y:auto;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    span {
+      color: rgb(153, 33, 29);
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" styles="padding:20px">
+      <img width="100px" height="75px" class="center-block" src="/public/stylesheets/bootstrap/dist/images/NBA-logo.png"></img>
+      <ul class="nav nav-tabs nav-justified">
+        <li class="active" ><a data-toggle="tab" href="#user">Stats Joueurs</a></li>
+        <li><a href="#analyst" data-toggle="tab">Stats matchs</a></li>
+        <li><a href="#admin" data-toggle="tab">Administrateur</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <ul style="font-size: 8px">
+          <li><strong>nombre de joueurs :</strong> <%= numplayers %></li>
+      </br></br>
+          <li><strong>best marqueur en 1 match</strong> : <%= bestplayer[0].PlayerName %> ,avec <%= bestplayer[1] %> points</li>
+    </br>  </br>        
+          <li><strong>jouer le plus longtemps en 1 match</strong> : <%= timeplayer[0].PlayerName %> ,avec <%= timeplayer[1] %> minutes (impossible)</li>
+        </br></br>
+        <li><strong>le plus de passe décisive en 1 match</strong> : <%= assistplayer[0].PlayerName %> ,avec <%= assistplayer[1] %> passes décisives</li>
+         
+        </ul>
+      
+    </div>
+    <div class="col-sm-8 text-left tab-content"> 
+        <h1>NBA LIVE</h1>
+        <hr>
+      <div id="user" class="tab-pane fade active in">
+          <h3>choose your Player</h3>
+          <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Player
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                  <% players.forEach(function(player,i){ %>
+                    <li><a href="/Player?player=<%= player %>" method="get" > <%= player %></a><li>
+                    <% }) %>
+              </ul>
+          </div>
+          <%if (p) { %>
+          <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td><span><%= playerstat.PlayerName %></span></td>
+                </tr>
+                <tr>
+                  <td>Team</td>
+                  <td><span><%= team.TeamName %></span></td>
+                </tr>
+                <% Object.keys(act).forEach(function(ac,i){ %>
+                <tr>
+                  <td><%= ac %></td>
+                  <td><span><%= act[ac] %></span></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <% } %>
+          
+      </div>
+      <div id="analyst" class="tab-pane fade">
+        <h3>choisissez un match</h3>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Match
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <% gamename.forEach(function(game,i){ %>
+                  <li><a href="/Game?game=<%= i+1 %>" method="get" > <%= game.Team1.TeamName %> - <%= game.Team2.TeamName %></a><li>
+                  <% }) %>
+            </ul>
+        </div>
+        <%if (g) { %>
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Actions</th>
+                  <th><%= actiongame[2].gamename.Team1.TeamName %></th>
+                  <th><%= actiongame[2].gamename.Team2.TeamName %></th>
+                </tr>
+              </thead>
+                <tbody>
+                  <% Object.keys(actiongame[0]).forEach(function(acg,i){ %>
+                  <tr>
+                    <td><%= acg %></td>
+                    <td><span><%= actiongame[0][acg] %></span></td>
+                    <td><span><%= actiongame[1][acg] %></span></td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+          <% } %>
+        
+      </div>
+      <div id="admin" class="tab-pane fade"> <p>vs etes sur ADMIN</p>
+      </div>
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>CHEWBACCAAAAAA</p>
+</footer>
+
+</body>
+</html>
